@@ -1,15 +1,18 @@
 defmodule GithubExplorer.Github.Client do
   use Tesla
 
-  alias GithubExplorer.{Error}
+  alias GithubExplorer.Error
+  alias GithubExplorer.Github.Behaviour
   alias Tesla.Env
 
-  plug Tesla.Middleware.BaseUrl, "https://api.github.com/"
+  @behaviour Behaviour
+
+  @base_url "https://api.github.com/"
   plug Tesla.Middleware.Headers, [{"user-agent", "Github Explorer"}]
   plug Tesla.Middleware.JSON
 
-  def get_user_repos(username) do
-    "users/#{username}/repos"
+  def get_user_repos(url \\ @base_url, username) do
+    "#{url}users/#{username}/repos"
     |> get()
     |> handle_get()
   end
@@ -25,5 +28,9 @@ defmodule GithubExplorer.Github.Client do
       end)
 
     {:ok, repos}
+  end
+
+  defp handle_get({:error, reason}) do
+    {:error, Error.build(:bad_request, reason)}
   end
 end

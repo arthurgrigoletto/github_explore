@@ -10,6 +10,9 @@ use Mix.Config
 config :github_explorer,
   ecto_repos: [GithubExplorer.Repo]
 
+config :github_explorer, GithubExplorer.Repositories.Get,
+  github_adapter: GithubExplorer.Github.Client
+
 # Configures the endpoint
 config :github_explorer, GithubExplorerWeb.Endpoint,
   url: [host: "localhost"],
