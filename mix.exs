@@ -44,10 +44,12 @@ defmodule GithubExplorer.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:pbkdf2_elixir, "~> 1.3"},
       {:tesla, "~> 1.4.0"},
       {:hackney, "~> 1.17.0"},
       {:bypass, "~> 2.1", only: :test},
-      {:mox, "~> 1.0", only: :test}
+      {:mox, "~> 1.0", only: :test},
+      {:guardian, "~> 2.0"}
     ]
   end
 

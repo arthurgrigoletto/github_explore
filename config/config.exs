@@ -13,6 +13,18 @@ config :github_explorer,
 config :github_explorer, GithubExplorer.Repositories.Get,
   github_adapter: GithubExplorer.Github.Client
 
+config :github_explorer, GithubExplorer.Repo,
+  migration_primary_key: [type: :binary_id],
+  migration_foreign_key: [type: :binary_id]
+
+config :github_explorer, GithubExplorerWeb.Auth.Guardian,
+  issuer: "github_explorer",
+  secret_key: "6NhygpTU8BeP8J+zvFST5sNEa7dafVLEydXMuoIO44tyvUex8Z+KOpt0z2Toqc/2"
+
+config :github_explorer, GithubExplorerWeb.Auth.Pipeline,
+  module: GithubExplorerWeb.Auth.Guardian,
+  error_handler: GithubExplorerWeb.Auth.ErrorHandler
+
 # Configures the endpoint
 config :github_explorer, GithubExplorerWeb.Endpoint,
   url: [host: "localhost"],
